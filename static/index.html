@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AX EMOTE SERVER</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false;
+        }
+    </script>
+</head>
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-content">
+            <div class="loading-icon">
+                <span>{</span>
+                <span>}</span>
+            </div>
+            <h2 class="loading-title">Sending Emote</h2>
+            <p class="loading-subtitle">Processing your request to the API server</p>
+            <div class="loading-dots">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="loading-status" id="loading-status">Preparing to send...</div>
+        </div>
+    </div>
+
+    <!-- MAINTENANCE OVERLAY -->
+    <div id="maintenance-overlay" class="overlay hidden">
+        <i class="fas fa-tools fa-3x" style="color:#ff0055;margin-bottom:15px;"></i>
+        <h2>ইমোট ওয়েবসাইট আপডেট চলছে, খুব শীঘ্রই ঠিক করা হবে</h2>
+        <p>Updating servers... Please wait.</p>
+        <a href="#" id="maint-telegram-btn" class="task-btn">JOIN TELEGRAM</a>
+    </div>
+
+    <!-- LOCK/VERIFY OVERLAY -->
+    <div id="lock-overlay" class="overlay">
+        <i class="fas fa-shield-alt fa-3x" style="color:var(--primary);margin-bottom:15px;"></i>
+        <h2>AX EMOTE SERVER UNLOCK 🔓</h2>
+        <p style="color:#aaa;font-size:12px;margin-bottom:20px;">COMPLETE ALL TASKS TO UNLOCK</p>
+        <div id="task-list" style="width:100%;display:flex;flex-direction:column;align-items:center;"></div>
+        <button id="check-unlock-btn" class="unlock-btn">VERIFY &amp; ENTER</button>
+    </div>
+
+    <!-- USER TYPE SELECTION OVERLAY -->
+    <div id="usertype-overlay" class="overlay hidden">
+        <button onclick="location.reload()" class="back-btn">
+            <i class="fas fa-arrow-left"></i> BACK
+        </button>
+        
+        <div class="usertype-container">
+            <div class="blood-icon">
+                <i class="fas fa-skull"></i>
+            </div>
+            <h2 class="blood-title">SELECT USER TYPE</h2>
+            <p class="blood-subtitle">Choose your injection method</p>
+
+            <div class="blood-buttons">
+                <button id="random-user-btn" class="blood-btn blood-random">
+                    <div class="btn-icon"><i class="fas fa-shuffle"></i></div>
+                    <div class="btn-text">
+                        <span class="btn-main">RANDOM USER</span>
+                        <span class="btn-sub">Auto Generated Account</span>
+                    </div>
+                    <div class="btn-arrow"><i class="fas fa-chevron-right"></i></div>
+                </button>
+
+                <button id="private-user-btn" class="blood-btn blood-private">
+                    <div class="btn-icon"><i class="fas fa-lock"></i></div>
+                    <div class="btn-text">
+                        <span class="btn-main">PRIVATE USER</span>
+                        <span class="btn-sub">Use Your Own Account</span>
+                    </div>
+                    <div class="btn-arrow"><i class="fas fa-chevron-right"></i></div>
+                </button>
+            </div>
+
+            <div id="random-status" class="blood-status"></div>
+        </div>
+    </div>
+
+    <!-- RANDOM USER - SERVER SELECT OVERLAY -->
+    <div id="random-server-overlay" class="overlay hidden">
+        <button onclick="showUserTypeSelection()" class="back-btn">
+            <i class="fas fa-arrow-left"></i> BACK
+        </button>
+
+        <div class="form-container">
+            <div class="blood-icon small">
+                <i class="fas fa-shuffle"></i>
+            </div>
+            <h2 class="blood-title">RANDOM BOT</h2>
+            <p class="blood-subtitle">Select your server region</p>
+
+            <div class="blood-input-group">
+                <label class="blood-label"><i class="fas fa-globe"></i> SELECT SERVER</label>
+                <div id="random-server-list" class="server-select-list">
+                    <div style="color:#888;text-align:center;padding:15px;"><i class="fas fa-spinner fa-spin"></i> Loading servers...</div>
+                </div>
+                <input type="hidden" id="random-selected-region" value="">
+            </div>
+
+            <button id="random-start-bot-btn" class="blood-submit-btn">
+                <i class="fas fa-robot"></i> START BOT
+            </button>
+
+            <div id="random-gen-status" class="blood-status"></div>
+        </div>
+    </div>
+
+    <!-- PRIVATE USER - SERVER SELECT OVERLAY -->
+    <div id="private-server-overlay" class="overlay hidden">
+        <button onclick="showUserTypeSelection()" class="back-btn">
+            <i class="fas fa-arrow-left"></i> BACK
+        </button>
+
+        <div class="form-container">
+            <div class="blood-icon small">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2 class="blood-title">PRIVATE LOGIN</h2>
+            <p class="blood-subtitle">Select your server region</p>
+
+            <div class="blood-input-group">
+                <label class="blood-label"><i class="fas fa-globe"></i> SELECT SERVER</label>
+                <div id="private-server-list" class="server-select-list">
+                    <div style="color:#888;text-align:center;padding:15px;"><i class="fas fa-spinner fa-spin"></i> Loading servers...</div>
+                </div>
+                <input type="hidden" id="private-selected-region" value="">
+            </div>
+
+            <div class="blood-input-group">
+                <label class="blood-label"><i class="fas fa-id-card"></i> GUEST UID</label>
+                <div class="blood-input-box">
+                    <input type="text" id="bot-uid" placeholder="e.g. 4330393266">
+                    <i class="fas fa-paste paste-icon" onclick="pasteText('bot-uid')"></i>
+                </div>
+            </div>
+
+            <div class="blood-input-group">
+                <label class="blood-label"><i class="fas fa-key"></i> PASSWORD</label>
+                <div class="blood-input-box">
+                    <input type="text" id="bot-pw" placeholder="Guest Token">
+                    <i class="fas fa-paste paste-icon" onclick="pasteText('bot-pw')"></i>
+                </div>
+            </div>
+
+            <button id="start-bot-btn" class="blood-submit-btn private">
+                <i class="fas fa-robot"></i> START BOT
+            </button>
+
+            <div id="login-status" class="blood-status"></div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container" id="main-container" style="display:none;">
+        <header><h1>AX EMOTE SERVER</h1></header>
+
+        <!-- VISIT COUNTER -->
+        <div id="visit-count-box" class="card" style="margin-bottom:15px;padding:10px 15px;display:flex;align-items:center;justify-content:space-around;gap:10px;font-size:13px;">
+            <span><i class="fas fa-users"></i> Total: <b style="color:var(--primary);">...</b></span>
+            <span><i class="fas fa-calendar-day"></i> আজ: <b style="color:var(--primary);">...</b></span>
+        </div>
+
+        <!-- BOT STATUS BAR -->
+        <div id="bot-status-bar" class="card" style="margin-bottom:15px;padding:10px 15px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:12px;color:#aaa;">
+                <i class="fas fa-robot" style="color:var(--primary);"></i>
+                Bot UID: <span id="display-bot-uid" style="color:var(--primary);font-weight:700;">-</span>
+            </div>
+            <div style="display:flex;gap:8px;">
+                <span id="bot-online-badge" style="background:var(--primary);color:#000;font-size:10px;padding:3px 8px;border-radius:10px;font-weight:700;">ONLINE</span>
+                <button onclick="switchAccount()" style="background:#c0392b;border:1px solid #e74c3c;color:#fff;font-size:12px;padding:5px 14px;border-radius:10px;cursor:pointer;font-weight:600;letter-spacing:0.5px;">LOGOUT</button>
+            </div>
+        </div>
+
+        <!-- TERMINAL -->
+        <div id="terminal" class="terminal-card" style="display:none;">
+            <div style="border-bottom:1px dashed #333;margin-bottom:5px;color:#fff;font-size:10px;">root@sakib-server:~# injecting_payload</div>
+            <div id="terminal-content"></div>
+        </div>
+
+        <!-- SERVER SELECT -->
+        <div class="card">
+            <label><i class="fas fa-globe"></i> SELECT SERVER</label>
+            <div class="server-scroller" id="server-list-container"></div>
+            <input type="hidden" id="selected-server-url">
+        </div>
+
+        <!-- TEAM CODE -->
+        <div class="card">
+            <label><i class="fas fa-users"></i> TEAM CODE</label>
+            <div class="input-box">
+                <input type="number" id="team-code" placeholder="Enter Team Code">
+                <i class="fas fa-paste paste-icon" onclick="pasteText('team-code')"></i>
+            </div>
+        </div>
+
+        <!-- TARGET UIDs -->
+        <div class="card">
+            <label><i class="fas fa-crosshairs"></i> TARGET UIDs</label>
+            <div id="uid-container"></div>
+        </div>
+
+        <!-- EMOTE LIST -->
+        <div class="card">
+            <label><i class="fas fa-radiation"></i> INJECT EMOTE (400+ ITEMS)</label>
+            <div class="emote-grid" id="emote-list"></div>
+        </div>
+
+        <div class="credit">SYSTEM DEVELOPED BY AX ROMJAN HOSSAIN</div>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

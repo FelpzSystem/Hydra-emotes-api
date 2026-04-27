@@ -1,0 +1,748 @@
+:root {
+    --primary: #00ff88;
+    --dark: #0f0f13;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+    --blood: #8b0000;
+    --blood-light: #dc143c;
+    --blood-dark: #4a0000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', monospace;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    touch-action: pan-x pan-y;
+    background-color: var(--dark);
+    color: #fff;
+}
+
+/* ===== BLOOD THEME OVERLAYS ===== */
+.usertype-container,
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+/* Back Button */
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: transparent;
+    border: 2px solid var(--blood-light);
+    color: var(--blood-light);
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.back-btn:hover {
+    background: var(--blood-light);
+    color: #fff;
+}
+
+.back-btn:active {
+    transform: scale(0.95);
+}
+
+/* Blood Icon */
+.blood-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--blood-dark) 0%, var(--blood) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    border: 3px solid var(--blood-light);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.blood-icon.small {
+    width: 70px;
+    height: 70px;
+}
+
+.blood-icon i {
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.blood-icon.small i {
+    font-size: 28px;
+}
+
+/* Blood Title */
+.blood-title {
+    color: var(--blood-light);
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
+}
+
+.blood-subtitle {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 35px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Blood Buttons Container */
+.blood-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Blood Button Style */
+.blood-btn {
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+    border: 2px solid var(--blood-dark);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.blood-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.blood-btn:hover::before {
+    left: 100%;
+}
+
+.blood-btn:active {
+    transform: scale(0.98);
+}
+
+.blood-btn.blood-random {
+    border-color: var(--blood-light);
+    border-left: 5px solid var(--blood-light);
+}
+
+.blood-btn.blood-private {
+    border-color: #4a4a4a;
+    border-left: 5px solid #666;
+}
+
+.blood-btn.blood-random:hover {
+    border-color: #ff0000;
+    background: linear-gradient(135deg, #1a0000 0%, #0d0d0d 100%);
+}
+
+.blood-btn.blood-private:hover {
+    border-color: #999;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+}
+
+.btn-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--blood-dark);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--blood-light);
+}
+
+.blood-private .btn-icon {
+    background: #2a2a2a;
+    color: #888;
+}
+
+.btn-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.btn-main {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-sub {
+    color: #666;
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.btn-arrow {
+    color: var(--blood-light);
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+.blood-private .btn-arrow {
+    color: #666;
+}
+
+/* Blood Input Group */
+.blood-input-group {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.blood-label {
+    display: block;
+    color: var(--blood-light);
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+.blood-input-box {
+    position: relative;
+    width: 100%;
+}
+
+.blood-input-box input {
+    width: 100%;
+    padding: 15px 45px 15px 15px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--blood-dark);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.blood-input-box input:focus {
+    border-color: var(--blood-light);
+}
+
+.blood-input-box .paste-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--blood-light);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+}
+
+/* Blood Submit Button */
+.blood-submit-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, var(--blood) 0%, var(--blood-dark) 100%);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--blood-light);
+    margin-top: 10px;
+}
+
+.blood-submit-btn.private {
+    background: linear-gradient(135deg, #333 0%, #111 100%);
+    border-color: #555;
+}
+
+.blood-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(139, 0, 0, 0.4);
+}
+
+.blood-submit-btn.private:hover {
+    box-shadow: 0 5px 20px rgba(100, 100, 100, 0.3);
+}
+
+.blood-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Blood Status */
+.blood-status {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: rgba(139, 0, 0, 0.2);
+    border: 1px solid var(--blood-dark);
+    border-radius: 8px;
+    color: #aaa;
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== EXISTING STYLES ===== */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 15px;
+    padding-bottom: 80px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary);
+    font-size: 22px;
+    border-bottom: 2px solid var(--primary);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.terminal-card {
+    background: #000;
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 11px;
+    color: var(--primary);
+    height: 120px;
+    overflow-y: auto;
+    display: none;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+.terminal-line {
+    margin: 2px 0;
+    border-bottom: 1px dashed #333;
+}
+
+.server-scroller {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 5px;
+    scrollbar-width: none;
+}
+
+.server-scroller::-webkit-scrollbar {
+    display: none;
+}
+
+.server-btn {
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--primary);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.server-btn.active {
+    background: var(--primary);
+    color: #000;
+    font-weight: 700;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.input-box {
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #fff;
+    outline: 0;
+}
+
+input:focus {
+    border-color: var(--primary);
+}
+
+.paste-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+    padding: 5px;
+    cursor: pointer;
+}
+
+.emote-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.emote-item {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px 5px;
+    text-align: center;
+    cursor: pointer;
+    height: auto;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.emote-item img {
+    width: 80%;
+    max-width: 50px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+.emote-item p {
+    font-size: 9px;
+    color: #ccc;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.emote-item.selected {
+    border-color: var(--primary);
+    background: rgba(0, 255, 136, 0.1);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.98);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.task-btn {
+    width: 80%;
+    padding: 12px;
+    margin: 8px 0;
+    background: linear-gradient(90deg, #ff0055, #ff00aa);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid #fff;
+    transition: 0.3s;
+}
+
+.task-done {
+    background: #00ff88 !important;
+    color: #000 !important;
+    border-color: #00ff88 !important;
+}
+
+.unlock-btn {
+    padding: 10px 30px;
+    background: 0 0;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.credit {
+    text-align: center;
+    margin-top: 20px;
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+/* LOADING ANIMATION OVERLAY */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.loading-icon {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+    animation: pulse 2s infinite;
+}
+
+.loading-icon span {
+    font-size: 48px;
+    color: #fff;
+    font-weight: 300;
+    animation: bracketMove 1.5s ease-in-out infinite;
+}
+
+.loading-icon span:first-child {
+    animation-delay: 0s;
+}
+
+.loading-icon span:last-child {
+    animation-delay: 0.2s;
+}
+
+@keyframes bracketMove {
+    0%, 100% { transform: translateX(0); opacity: 1; }
+    50% { transform: translateX(5px); opacity: 0.7; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.loading-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.loading-subtitle {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.loading-dots {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.loading-dots span {
+    width: 10px;
+    height: 10px;
+    background: #4a90e2;
+    border-radius: 50%;
+    animation: dotBounce 1.4s ease-in-out infinite both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes dotBounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+.loading-status {
+    font-size: 13px;
+    color: #4a90e2;
+    background: rgba(74, 144, 226, 0.1);
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(74, 144, 226, 0.3);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 90%;
+    word-break: break-all;
+}
+
+.loading-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Scrollbar styling for blood containers */
+.usertype-container::-webkit-scrollbar,
+.form-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.usertype-container::-webkit-scrollbar-track,
+.form-container::-webkit-scrollbar-track {
+    background: rgba(139, 0, 0, 0.1);
+}
+
+.usertype-container::-webkit-scrollbar-thumb,
+.form-container::-webkit-scrollbar-thumb {
+    background: var(--blood-dark);
+    border-radius: 3px;
+}
+
+/* ===== FF SERVER SELECTION LIST ===== */
+.server-select-list {
+    width: 100%;
+    max-height: 240px;
+    overflow-y: auto;
+    border: 1px solid var(--blood-light);
+    border-radius: 8px;
+    background: rgba(0,0,0,0.3);
+    margin-top: 8px;
+}
+
+.ff-server-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #ccc;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.2s;
+}
+
+.ff-server-btn:last-child {
+    border-bottom: none;
+}
+
+.ff-server-btn:hover {
+    background: rgba(220,20,60,0.15);
+    color: #fff;
+}
+
+.ff-server-btn.active {
+    background: rgba(220,20,60,0.3);
+    color: var(--primary);
+    font-weight: 700;
+    border-left: 3px solid var(--primary);
+}
+
+.ff-server-btn .fa-circle-dot {
+    color: var(--blood-light);
+    font-size: 10px;
+}
+
+.ff-server-btn.active .fa-circle-dot {
+    color: var(--primary);
+}
+
+.server-select-list::-webkit-scrollbar {
+    width: 4px;
+}
+.server-select-list::-webkit-scrollbar-track {
+    background: rgba(139,0,0,0.1);
+}
+.server-select-list::-webkit-scrollbar-thumb {
+    background: var(--blood-dark);
+    border-radius: 3px;
+}
