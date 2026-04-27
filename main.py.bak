@@ -18,14 +18,14 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # === IN-MEMORY CONFIG ===
 TASKS_CONFIG = [
-    {"id": "task1", "name": "JOIN TELEGRAM CHANNEL", "link": "https://t.me/axemoteserver"},
-    {"id": "task2", "name": "JOIN 2d TELEGRAM", "link": "https://t.me/axromjanyt"},
-    {"id": "task3", "name": "SUBSCRIBE YOUTUBE", "link": "https://www.youtube.com/@axromjan"},
+    {"id": "task1", "name": "JOIN WHATSAPP GROUP", "link": "https://chat.whatsapp.com/KXBQFaKPoo55oFYv3iyNzB?mode=gi_t"},
+    {"id": "task2", "name": "JOIN 2d TELEGRAM", "link": "https://t.me/"},
+    {"id": "task3", "name": "SUBSCRIBE YOUTUBE", "link": "https://www.youtube.com/"},
 ]
 
 SETTINGS_CONFIG = {
     "maintenance": "off",
-    "telegram": "https://t.me/axemoteserver"
+    "telegram": "https://t.me/"
 }
 
 # === FF SERVER LIST (all regions) ===

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SOS EMOTE SERVER</title>
+    <title>AX EMOTE SERVER</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
     <script>
@@ -42,7 +42,7 @@
     <!-- LOCK/VERIFY OVERLAY -->
     <div id="lock-overlay" class="overlay">
         <i class="fas fa-shield-alt fa-3x" style="color:var(--primary);margin-bottom:15px;"></i>
-        <h2>SOS EMOTE SERVER UNLOCK 🔓</h2>
+        <h2>AX EMOTE SERVER UNLOCK 🔓</h2>
         <p style="color:#aaa;font-size:12px;margin-bottom:20px;">COMPLETE ALL TASKS TO UNLOCK</p>
         <div id="task-list" style="width:100%;display:flex;flex-direction:column;align-items:center;"></div>
         <button id="check-unlock-btn" class="unlock-btn">VERIFY &amp; ENTER</button>
@@ -161,7 +161,7 @@
 
     <!-- MAIN CONTAINER -->
     <div class="container" id="main-container" style="display:none;">
-        <header><h1>SOS EMOTE SERVER</h1></header>
+        <header><h1>AX EMOTE SERVER</h1></header>
 
         <!-- VISIT COUNTER -->
         <div id="visit-count-box" class="card" style="margin-bottom:15px;padding:10px 15px;display:flex;align-items:center;justify-content:space-around;gap:10px;font-size:13px;">
@@ -215,7 +215,7 @@
             <div class="emote-grid" id="emote-list"></div>
         </div>
 
-        <div class="credit">SYSTEM DEVELOPED BY FELPZ SYSTEM</div>
+        <div class="credit">SYSTEM DEVELOPED BY AX ROMJAN HOSSAIN</div>
     </div>
 
     <script src="/script.js"></script>

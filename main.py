@@ -1028,7 +1028,7 @@ def get_ff_servers():
 
 @app.route('/api/servers')
 def get_servers():
-    return jsonify([{"name": "AX SERVER BD", "url": "/join"}])
+    return jsonify([{"name": "SOS SERVER BR", "url": "/join"}])
 
 @app.route('/api/generate-and-start', methods=['POST'])
 def generate_and_start():
@@ -1133,5 +1133,5 @@ def bot_status():
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8000))
-    print(f"[SERVER] Starting AX Emote Bot Server on port {port}")
+    print(f"[SERVER] Starting SOS Emote Bot Server on port {port}")
     app.run(host='0.0.0.0', port=port, debug=False, use_reloader=False, threaded=True)
